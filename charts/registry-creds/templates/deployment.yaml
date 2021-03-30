@@ -24,8 +24,12 @@ spec:
         {{ $key }}: {{ $value | quote }}
       {{- end }}
       {{- end }}
-      {{- if .Values.podAnnotations }}
       annotations:
+        checksum/secret_acr: {{ include (print $.Template.BasePath "/secret_acr.yaml") . | sha256sum }}
+        checksum/secret_dpr: {{ include (print $.Template.BasePath "/secret_dpr.yaml") . | sha256sum }}
+        checksum/secret_ecr: {{ include (print $.Template.BasePath "/secret_ecr.yaml") . | sha256sum }}
+        checksum/secret_gcr: {{ include (print $.Template.BasePath "/secret_gcr.yaml") . | sha256sum }}
+      {{- if .Values.podAnnotations }}
       {{- range $key, $value := .Values.podAnnotations }}
         {{ $key }}: {{ $value | quote }}
       {{- end }}
