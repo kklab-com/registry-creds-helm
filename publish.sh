@@ -14,7 +14,6 @@ WORKING_DIRECTORY="$PWD"
   echo "ERROR: Could not find Helm charts in $HELM_CHARTS_SOURCE"
   exit 1
 }
-[ -z "$HELM_VERSION" ] && HELM_VERSION=2.8.1
 [ "$CIRCLE_BRANCH" ] || {
   echo "ERROR: Environment variable CIRCLE_BRANCH is required"
   exit 1
@@ -23,7 +22,6 @@ WORKING_DIRECTORY="$PWD"
 echo "GITHUB_PAGES_REPO=$GITHUB_PAGES_REPO"
 echo "GITHUB_PAGES_BRANCH=$GITHUB_PAGES_BRANCH"
 echo "HELM_CHARTS_SOURCE=$HELM_CHARTS_SOURCE"
-echo "HELM_VERSION=$HELM_VERSION"
 echo "CIRCLE_BRANCH=$CIRCLE_BRANCH"
 
 echo '>> Prepare...'
@@ -31,15 +29,6 @@ mkdir -p /tmp/helm/bin
 mkdir -p /tmp/helm/publish
 apk update
 apk add ca-certificates git openssh
-
-echo '>> Installing Helm...'
-cd /tmp/helm/bin
-wget "https://storage.googleapis.com/kubernetes-helm/helm-v${HELM_VERSION}-linux-amd64.tar.gz"
-tar -zxf "helm-v${HELM_VERSION}-linux-amd64.tar.gz"
-chmod +x linux-amd64/helm
-alias helm=/tmp/helm/bin/linux-amd64/helm
-helm version -c
-helm init -c
 
 echo ">> Checking out $GITHUB_PAGES_BRANCH branch from $GITHUB_PAGES_REPO"
 cd /tmp/helm/publish

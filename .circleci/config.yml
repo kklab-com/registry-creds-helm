@@ -5,7 +5,7 @@ jobs:
       ignore:
         - gh-pages
     docker:
-      - image: alpine
+      - image: alpine/helm:3.5.3
     steps:
       - add_ssh_keys:
           fingerprints:
