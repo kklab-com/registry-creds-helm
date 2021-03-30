@@ -1,5 +1,5 @@
 version: 2
-jobs:  
+jobs:
   build:
     branches:
       ignore:
@@ -9,10 +9,10 @@ jobs:
     steps:
       - add_ssh_keys:
           fingerprints:
-            - "14:d6:82:94:88:6c:5a:53:6c:7a:f1:97:34:ec:b0:50"
+            - "83:1b:3b:f6:38:ab:71:59:c5:13:0b:1f:d9:98:a1:df"
       - checkout
       - run:
-          name: charts 
+          name: charts
           environment:
-            - GITHUB_PAGES_REPO: kir4h/charts
-          command: wget -O - https://raw.githubusercontent.com/kir4h/charts/master/publish.sh | sh
+            - GITHUB_PAGES_REPO: kklab-com/registry-creds-helm
+          command: wget -O - https://raw.githubusercontent.com/kklab-com/registry-creds-helm/master/publish.sh | sh
